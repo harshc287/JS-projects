@@ -1,0 +1,9 @@
+body{
+    background-color: rgb(130, 162, 190);
+}
+.mainHeading{
+    color: rgb(0, 0, 0);
+    font-weight: 800px;
+    text-shadow: 2px 3px 4px rgb(27, 25, 25);
+    background-color: rgb(209, 251, 237);
+}
