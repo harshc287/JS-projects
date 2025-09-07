@@ -53,15 +53,18 @@ renderCardElmt = document.querySelector('#renderCard');
 renderCardElmt.innerHTML = watches.map(
                                   (w,i)=>`
                                   
-<div class="col-sm-12 col-md-6 col-lg-4 g-3">
+<div class="col-sm-12 col-md-6 col-lg-4 g-4">
     <div class="card">
       <div class="card-body">
-      <img src="./img/image3.webp" height="200px" class="d-block w-100 " alt="...">
-    <h5 class="card-title">${w.title}</h5>
-    <p class="card-text">Description: ${w.description}</p>
+      <img src="./img/image3.webp" height="200px"  style=" object-fit: cover;" class="d-block w-100 " alt="...">
+    <h4 class="card-title mt-2 mb-3 fw-bold text-center">${w.title}</h4>
+    <p class="card-text lead ">Description: ${w.description}</p>
     <p class="card-text">In Stock: ${w.stock}</p>
-    <p class="card-text"> price: ${w.price}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+    <p class="card-text"> price: $${w.price}</p>
+      <button class="btn btn-info w-100" onclick="addToCart()">
+      <i class="fas fa-cart-plus"></i> Add to Cart
+      </button>
+
       </div>
     </div>
   </div>

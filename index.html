@@ -1,100 +1,244 @@
 <!doctype html>
 <html lang="en">
-  <head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="./style.css">
-    <title>WatchVista</title>
-  </head>
-  <body>
-    <div class=" d-block  justify-content-center text-center m-3">
-        <a class="navbar-brand nav-item m-3" href="#">
-      <img src="/img/logo2.avif" alt="" width="230" height="90" class="d-inline-block align-text-top"></a>
-    </div>     
-<nav class="navbar navbar-expand-lg navbar-light bg-light ">
-  <div class="container-fluid  justify-content-center">
-      
-<ul class="navbar-nav  mb-2 mb-lg-0 ">
-      <li  class="nav-item me-4">
-        <a href="/collections/customize" class="nav-link active">
-          <span >Design Your Own Watch</span>
-        </a>
-      </li>
-    
-      <li  class="nav-item me-4">
-        <a href="/collections/accessories" class="nav-link active">
-          <span >Accessories</span>
-        </a>
-      </li>
-      <li  class="nav-item me-4">
-        <a href="/pages/the-brand" class="nav-link active">
-          <span >The Brand</span>
-        </a>
-      </li  class="nav-item">
-      
-      </li>
-    
-      <li  class="nav-item me-4">
-        <a href="/pages/stores" class="nav-link active">
-          <span >Point Of Sale</span>
-        </a>
-      </li>
-      <li  class="nav-item me-4">
-        <a href="/pages/contact-us" class="nav-link active">
-          <span >Contact Us</span>
-        </a>
-      </li>
-</ul>
-  </div>
-</nav>
-<!-- </nav> -->
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="./img/Banner_2-01_1950x.webp"  height="600px" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>A youth-centric brand known for trendy and affordable watches.</h5>
-        <p>Its bold designs, vibrant colors, and sporty styles make it a favorite among college students and young professionals.</p>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <title>WatchVista</title>
+</head>
+
+<body>
+  <!-- <div class=" d-block  justify-content-center text-center m-3">
+    <a class="navbar-brand nav-item m-3" href="#">
+      <img src="/img/watch vista.png" alt="" width="230" height="50" class="d-inline-block align-text-top"></a>
+  </div> -->
+  <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+    <div class="container-fluid collapse navbar-collapse ">
+  <div class="row align-items-center">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse col-4" id="navbarNav">
+        <ul class="navbar-nav  mb-2 mb-lg-0 ">
+          <li class="nav-item me-4">
+            <a href="#about" class="nav-link ">
+              <span>About</span>
+            </a>
+          </li>
+
+          <li class="nav-item me-4">
+            <a href="#" class="nav-link ">
+              <span>Accessories</span>
+            </a>
+          </li>
+
+          <li class="nav-item me-4">
+            <a class="nav-link " href="#products">Products</a>
+          </li>
+
+          <li class="nav-item me-4">
+            <a href="#" class="nav-link ">
+              <span>Contact Us</span>
+            </a>
+          </li>
+        </ul>
       </div>
-    </div>
-    <div class="carousel-item">
-      <img src="./img/image2.webp" height="600px" class="d-block w-100 " alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>A trusted brand under Titan, offering reliable and budget-friendly watches.</h5>
-        <p>From G-Shock to Edifice, Casio blends toughness, style, and multifunctionality for all age groups.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="./img/image3.webp"  height="600px" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>A globally recognized Japanese brand famous for innovation</h5>
-        <p>Some representative placeholder content for the third slide.</p>
-      </div>
-    </div>
+
+      <div class=" d-block  justify-content-center text-center m-3 col-4">
+    <a class="navbar-brand nav-item m-3" href="#">
+      <img src="/img/watch vista.png" alt="" width="230" height="50" class="d-inline-block align-text-top"></a>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+<div class=" col">
+      <button class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+        <i class="fas fa-shopping-cart"></i> Cart
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
 </div>
-    <div class="container">
-        <div class="row justify-content-center m-5" id="renderCard">
-          
-        </div>
     </div>
+    </div>
+  </nav> -->
 
-    <script src="./script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  </body>
+
+ <header class="sticky-top bg-white py-3 border-bottom">
+  <div class="container-fluid ">
+    <div class="row align-items-center ">
+      
+      
+      
+      <div class="col-lg-5 d-none d-lg-block  ">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+         
+
+
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="">Home</a>
+            </li>
+             <li class="nav-item me-4">
+            <a href="#about" class="nav-link ">
+              <span>About</span>
+            </a>
+          </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shop">Shop</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/contact">Contact</a>
+            </li>
+          </ul>
+        </nav>
+        
+      </div>
+  
+      
+      <div class="col-lg-3 col-md-6 col-sm-6 col-6 text-center">
+        <a href="/" class="navbar-brand">
+          <img src="./img/watch vista.png" alt="Watch Vista Logo" height="40">
+        </a>
+      </div>
+
+  
+      <div class="col-lg-4 col-md-6 col-sm-6 col-6 text-center">
+        <ul class="nav justify-content-end">
+          <li class="nav-item">
+            <a class="nav-link " href="/login">
+              <i class="fa-solid fa-user"></i> Login
+            </a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link" href="">
+              <i class="fa-solid fa-bag-shopping"></i></a>
+          </li>
+       
+          <li class="nav-item ">
+         <button class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
+        <i class="fas fa-shopping-cart"></i> Cart
+        <span class="cart-badge" id="cartCount">0</span>
+      </button>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  
+</header> 
+
+
+
+
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="./img/Banner_2-01_1950x.webp" height="620px" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h1 class="display-5 mb-4 text-dark">Welcome to Jaipur Watches</h1>
+          <p class="lead mb-4 text-dark">Discover the latest in Watches with technology</p>
+          <a href="#products" class="btn btn-light btn-lg text-black">Shop Now</a>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./img/image2.webp" height="600px" class="d-block w-100 " alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>A trusted brand under Titan, offering reliable and budget-friendly watches.</h5>
+          <p>From G-Shock to Edifice, Casio blends toughness, style, and multifunctionality for all age groups.</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="./img/image3.webp" height="600px" class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>A globally recognized Japanese brand famous for innovation</h5>
+          <p>Some representative placeholder content for the third slide.</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="container " id="products">
+    <h2 class="text-center mt-5 ">Our Products</h2>
+    <div class="row justify-content-center m-3" id="renderCard">
+
+    </div>
+  </div>
+
+  <section id="about" class="py-5 bg-light">
+    <div class="container">
+      <div class=" text-center">
+        <div class="">
+          <h2>About OurStore</h2>
+          <p>We are your trusted destination for the latest electronics and technology products. With a focus on quality
+            and customer satisfaction, we bring you the best deals on smartphones, laptops, headphones, and more.</p>
+          <p>Our commitment to excellence and innovation drives us to continuously improve our product selection and
+            customer service.</p>
+        </div>
+
+        <div class=" text-center">
+          <div class=" mb-3">
+            <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+            <h5>Fast Shipping</h5>
+            <p>Quick delivery to your doorstep</p>
+          </div>
+          <div class=" mb-3">
+            <i class="fas fa-shield-alt fa-3x text-success mb-3"></i>
+            <h5>Secure Payment</h5>
+            <p>Your transactions are safe with us</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="bg-dark text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>JaipurWatches</h5>
+          <p>Your trusted Watches destination since 2004.</p>
+        </div>
+        <div class="col-md-6 text-end">
+          <h6>Follow Us</h6>
+          <a href="#" class="text-white me-3"><i class="fab fa-facebook"></i></a>
+          <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <hr>
+      <div class="text-center">
+        <p>&copy; 2024 Jaipur watch store. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
