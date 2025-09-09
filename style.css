@@ -7,3 +7,18 @@ body{
     text-shadow: 2px 3px 4px rgb(27, 25, 25);
     background-color: rgb(209, 251, 237);
 }
+.card {
+      border: none;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    footer {
+      background: #212529;
+      color: #fff;
+      padding: 15px;
+      margin-top: 40px;
+     
+    }
