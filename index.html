@@ -15,6 +15,8 @@
 <body>
                       <!-- navbar -->
 
+
+
  <header class="sticky-top bg-white py-3 border-bottom ">
   <div class="container-fluid ">
     <div class="row align-items-center">
@@ -70,9 +72,10 @@
        
           <li class="nav-item ">
          <button class="btn position-relative" data-bs-toggle="modal" data-bs-target="#cartModal">
-        <i class="fas fa-shopping-cart"></i> Cart
-        <span class="cart-badge" id="cartCount">0</span>
-      </button>
+  <i class="fas fa-shopping-cart"></i> Cart
+  <span class="cart-badge" id="cartCount">0</span>
+</button>
+
           </li>
         </ul>
       </div>
@@ -81,6 +84,26 @@
   </div>
   
 </header> 
+
+
+
+<div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Your Cart</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="cartItems">
+      <ul id="cartItemsList" class="list-group"></ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Continue Shopping</button>
+        <button type="button" class="btn btn-primary">Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- corosal banner -->
@@ -126,29 +149,38 @@
   </div>
 
 <!-- search and brands -->
+<div class="container w-75 mx-auto mt-4">
+  <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
 
-    <div class="container w-75 mx-auto mt-4 d-flex">
-    <div class="input-group me-3">
-      <input type="text" id="searchInput" class="form-control" placeholder="Search Product">
-      <button type="button" class="btn btn-info" onclick="searchProduct()">Search</button>
+    <!-- Search bar -->
+    <div class="input-group" style="max-width: 450px;">
+      <input type="text" id="searchInput" class="form-control p-2" placeholder="Search Product">
+      <button type="button" class="btn btn-info w-25" onclick="searchProduct()">Search</button>
     </div>
-    <!-- brand btn -->
-    <div class=" d-flex  w-25 w-auto me-3" >
-  <button class="btn btn-info  dropdown-toggle  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Brands
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="renderBrands"></Ul>
+
+    <!-- Brand dropdown -->
+    <div>
+      <button class="btn btn-info dropdown-toggle p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Brands
+      </button>
+      <ul class="dropdown-menu" id="renderBrands"></ul>
+    </div>
+
+    <!-- All products button -->
+    <div>
+      <button type="button" class="btn btn-info p-2" onclick="allProducts()">All Products</button>
+    </div>
+
   </div>
-  <!-- all products -->
-   <div class=" w-25"><button type="button" class="btn btn-info" onclick="allProducts()">All products</button></div>
-  </div>
+</div>
+
 
 
 
   <!-- products -->
 
   <div class="container mt-4">
-    <h2 class="text-center mb-4">Our Products</h2>
+    <h2 class="text-center mb-4 text-light">Our Products</h2>
     <div class="row" id="renderCard"></div>
   </div>
 
@@ -185,7 +217,7 @@
   <!-- footer -->
 
   <footer class="bg-dark text-white py-4">
-    <div class="container">
+    <div >
       <div class="row">
         <div class="col-md-6">
           <h5>JaipurWatches</h5>
@@ -208,7 +240,50 @@
     </div>
   </footer>
 
+   <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Watch </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editIndex">
+                        <div class="mb-3">
+                            <label class="form-label">Watch Name</label>
+                            <input type="text" id="editName" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Watch Description</label>
+                            <input type="text" id="editDescription" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Watch Price</label>
+                            <input type="number" id="editPrice" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Watch Quantity</label>
+                            <input type="number" id="editStock" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" id="updateProduct" data-bs-dismiss="modal" class="btn btn-success">Save
+                            Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
   <script src="./script.js"></script>
+  <script>
+   
+    newProduct= getWatchesFromLocal()
+    renderProducts(newProduct)
+    
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>

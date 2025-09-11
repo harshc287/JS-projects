@@ -1,6 +1,20 @@
 body{
-    background-color: rgb(240, 245, 249);
+    
+    background: url("./img/watchimg.jpg") no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #000; /* fallback color if image doesn't load */
+  
 }
+#bgVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    z-index: -1; /* pushes video behind everything */
+  }
 .mainHeading{
     color: rgb(0, 0, 0);
     font-weight: 800px;
