@@ -1,38 +1,297 @@
-body{
-    
-    background: url("./img/watchimg.jpg") no-repeat center center fixed;
-    background-size: cover;
-    background-attachment: fixed;
-    background-color: #000; /* fallback color if image doesn't load */
-  
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
-#bgVideo {
-    position: fixed;
-    top: 0;
-    left: 0;
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: cover;
-    z-index: -1; /* pushes video behind everything */
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.mainHeading {
+  color: rgb(0, 0, 0);
+  font-weight: 800px;
+  text-shadow: 2px 3px 4px rgb(27, 25, 25);
+  background-color: rgb(209, 251, 237);
+}
+
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+  transform: rotate(360deg) scale(1.1);
+}
+
+/* Enhanced Header */
+.navbar {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  animation: slideInDown 0.8s ease-out;
+}
+
+.nav-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: var(--primary-gradient);
+  transition: left 0.3s ease;
+}
+
+.nav-link:hover::before {
+  left: 0;
+}
+
+.nav-link:hover {
+  color: #667eea !important;
+  transform: translateY(-2px);
+}
+
+.carousel-item img {
+  filter: brightness(0.8);
+  transition: all 0.5s ease;
+}
+
+.carousel-item.active img {
+  filter: brightness(1);
+  transform: scale(1.02);
+}
+
+.carousel-caption {
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.carousel-caption h1 {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(45deg, #1a3838, #069263);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.search-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1s ease-out;
+}
+
+.form-control {
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn {
+  position: relative;
+  overflow: hidden;
+  border: none;
+
+  padding: 6px 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(161, 41, 41, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-info {
+  background: var(--primary-gradient);
+  border: none;
+}
+
+.btn-info:hover {
+
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+.btn-success:hover {
+
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(18, 43, 65, 0.4);
+}
+
+.btn-secondary:hover {
+
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+}
+
+.product-cart {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  animation: fadeInUp 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.card-body img {
+  transition: all 0.4s ease;
+  border-radius: 15px;
+}
+
+.card-body:hover img {
+  transform: scale(1.05);
+}
+
+.about-section {
+  background: var(--primary-gradient);
+  color: rgb(0, 0, 0);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent, rgba(35, 160, 176, 0.2), transparent);
+  animation: float 20s ease-in-out infinite;
+}
+
+.feature-icon {
+  transition: all 0.3s ease;
+}
+
+.feature-icon:hover {
+  animation: bounce 1s;
+  color: #ffd700 !important;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
   }
-.mainHeading{
-    color: rgb(0, 0, 0);
-    font-weight: 800px;
-    text-shadow: 2px 3px 4px rgb(27, 25, 25);
-    background-color: rgb(209, 251, 237);
+
+  50% {
+    transform: translateY(-20px);
+  }
 }
-.card {
-      border: none;
-      border-radius: 12px;
-      transition: transform 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-    footer {
-      background: #212529;
-      color: #fff;
-      padding: 15px;
-      margin-top: 40px;
-     
-    }
+
+.contact_card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  animation: fadeInLeft 1s ease-out;
+}
+
+.contact-details {
+  animation: fadeInRight 1s ease-out;
+}
+
+.hoverIcon :hover {
+   background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) scale(1.1);
+    color: #ffd700;
+}
+
+#goTopBtn {
+  position: fixed;
+  bottom: 10px;
+  left: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--primary-gradient);
+  border: none;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+#goTopBtn:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+}
+
+
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+html, body {
+  overflow-x: hidden;
+}
+
+.container-fluid, .row {
+  max-width: 100%;
+}
