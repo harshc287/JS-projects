@@ -102,7 +102,9 @@ function updateProduct(i) {
 }
 
 
- // LocalStorage helpers for cart
+
+
+// LocalStorage helpers for cart
 function getCart() {
   return JSON.parse(localStorage.getItem('cart')) || [];
 }
@@ -110,74 +112,81 @@ function setCart(cart) {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-function cartCount(){
+// Update the cart count badge (sum of quantities)
+function cartCount() {
   const cart = getCart();
-  const totalQty= cart.reduce((sum, item)=> sum + Number(item.qty || 0 ),0)
-  const badge = document.querySelector('#cartCount') || document.querySelector("#count")
-  if(badge) badge.textContent = totalQty
+  const totalQty = cart.reduce((sum, item) => sum + Number(item.qty || 0), 0);
+  const badge = document.querySelector('#cartCount') || document.querySelector('#count');
+  if (badge) badge.textContent = totalQty;
 }
-  document.addEventListener('DOMContentLoaded', cartCount)
+document.addEventListener('DOMContentLoaded', cartCount);
 
 
-//addToCart(id) — add or increment an item
-function addToCart(id){
-  id = Number(id)
-  const watchesFromLocal =getWatchesFromLocal() || []
-  const product = watchesFromLocal.find(p=> Number(p.id) === id)
-
-  if (!product){
-     alert('Product not found'); return; 
+/* ---------- Add to cart (main) ---------- */
+function addToCart(id) {
+  id = Number(id);
+  const watchesFromLocal = getWatchesFromLocal() || []; // your product list
+  const product = watchesFromLocal.find(p => Number(p.id) === id);
+  if (!product) {
+    alert('Product not found');
+    return;
   }
 
   let cart = getCart();
-  const idx = cart.findIndex(c=> Number(c.id)===id)
+  const idx = cart.findIndex(c => Number(c.id) === id);
 
-  if(idx > -1){
-    const newQty = Number(cart[idx].qty)+ 1
-    if(product.stock && newQty > Number(product.stock)){
-      alert('Cannot add More - Reached Avalable Stock')
-      return
+  if (idx > -1) {
+    // already in cart -> increase qty (respect stock)
+    const newQty = Number(cart[idx].qty) + 1;
+    if (product.stock && newQty > Number(product.stock)) {
+      alert('Cannot add more — reached available stock');
+      return;
     }
-    cart[idx].qty = newQty 
-  }else{
+    cart[idx].qty = newQty;
+  } else {
+    // new item
     cart.push({
-      id : product.id,
-      title : product.title,
-      price : product.price,
-      qty : 1
-    })
+      id: product.id,
+      title: product.title,
+      price: Number(product.price),
+      qty: 1
+    });
   }
+
   setCart(cart);
   cartCount();
-  renderCart();
+  renderCart(); // refresh modal if open
+  // small UI feedback (optional)
   showTempAlert('Product added to cart');
 }
 
-//showTempAlert(message)
-function showTempAlert(msg, duration = 1400){
-  const wrapper = document.createElement('div')   //create a temporary container in memory.
-  wrapper.innerHTML =  `<div class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index:2000;">
+/* simple temporary alert (you can replace with Bootstrap toast if you prefer) */
+function showTempAlert(msg, duration = 1400) {
+  const wrapper = document.createElement('div');
+  wrapper.innerHTML = `<div class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index:2000;">
     ${msg}
-  </div>`
+  </div>`;
   document.body.appendChild(wrapper);
   setTimeout(()=> wrapper.remove(), duration);
 }
 
-//renderCart() — build the modal contents (list + total)
-function renderCart(){
-  const cart = getCart()
-  const list = document.querySelector("#cartItemsList")
-  if(!list) return;
 
-  if(cart.length === 0){
-    list.innerHTML =  `<li class="list-group-item">Your cart is empty</li>`;
+/* ---------- Render cart modal content ---------- */
+function renderCart() {
+  const cart = getCart();
+  const list = document.querySelector('#cartItemsList');
+  if (!list) return;
+
+  if (cart.length === 0) {
+    list.innerHTML = `<li class="list-group-item">Your cart is empty</li>`;
     return;
   }
+
   const itemsHtml = cart.map(item => `
     <li class="list-group-item d-flex justify-content-between align-items-center">
-    <div>
-      <strong>${item.title}</strong><br>
-      ₹${Number(item.price).toFixed(2)} x <span class="fw-bold">${item.qty}</span>
+      <div>
+        <strong>${item.title}</strong><br>
+        ₹${Number(item.price).toFixed(2)} x <span class="fw-bold">${item.qty}</span>
         = ₹${(item.price * item.qty).toFixed(2)}
       </div>
       <div class="btn-group" role="group" aria-label="cart-controls">
@@ -188,236 +197,75 @@ function renderCart(){
     </li>
   `).join('');
 
-  const total = cart.reduce((s, it) => s + Number(it.price) * Number(it.qty),0)
+  const total = cart.reduce((s, it) => s + Number(it.price) * Number(it.qty), 0);
 
   list.innerHTML = itemsHtml + `
-  <li class="list-group-item d-flex justify-content-between">
+    <li class="list-group-item d-flex justify-content-between">
       <strong>Total</strong>
       <strong>₹${total.toFixed(2)}</strong>
-    </li>`
+    </li>
+  `;
 }
 
-//Cart controls — event delegation for + / - / Remove
-const cartListEl = document.querySelector('#cartItemsList')
-if(cartListEl){
+/* ---------- Cart controls (delegate click handlers) ---------- */
+const cartListEl = document.querySelector('#cartItemsList');
+if (cartListEl) {
   cartListEl.addEventListener('click', (e) => {
-    const btn = e.target.closest('button')
-    if(!btn) return;
+    const btn = e.target.closest('button');
+    if (!btn) return;
     const id = Number(btn.dataset.id);
-    if(btn.classList.contains('cart-increase')) changeQty(id, +1)
-      else if (btn.classList.contains('cart-decrease')) changeQty(id, -1);
-      else if (btn.classList.contains('cart-remove')) removeFromCart(id);
-  })
+    if (btn.classList.contains('cart-increase')) changeQty(id, +1);
+    else if (btn.classList.contains('cart-decrease')) changeQty(id, -1);
+    else if (btn.classList.contains('cart-remove')) removeFromCart(id);
+  });
 }
 
-//changeQty(id, delta) & removeFromCart(id)
-function changeQty(id, delta){
+function changeQty(id, delta) {
   const watchesFromLocal = getWatchesFromLocal() || [];
-  const product = watchesFromLocal.find(p => Number(p.id) === id)
+  const product = watchesFromLocal.find(p => Number(p.id) === id);
 
-  let cart = getCart()
-  const idx = cart.findIndex(i => Number(i.id) === id)
-  if(idx === -1) return
+  let cart = getCart();
+  const idx = cart.findIndex(i => Number(i.id) === id);
+  if (idx === -1) return;
 
-  cart[idx].qty = Number(cart[idx].qty + delta)
+  cart[idx].qty = Number(cart[idx].qty) + delta;
 
-  if(cart[idx].qty <=0 ){
-    cart.splice(idx, 1)
-  }else if(product && product.stock && cart[idx].qty> Number(product.stock)){
-    cart[idx].qty = Number(product.stock)
+  if (cart[idx].qty <= 0) {
+    cart.splice(idx, 1);
+  } else if (product && product.stock && cart[idx].qty > Number(product.stock)) {
+    cart[idx].qty = Number(product.stock);
     alert('Reached max stock for this product');
   }
+
   setCart(cart);
   cartCount();
   renderCart();
 }
 
-function removeFromCart(id){
-  let cart = getCart()
-  cart = cart.filter(it => Number(it.id)!== id)
+function removeFromCart(id) {
+  let cart = getCart();
+  cart = cart.filter(it => Number(it.id) !== id);
   setCart(cart);
   cartCount();
   renderCart();
 }
 
-//re-render when modal opens & Checkout button
+/* Render cart when modal opens (Bootstrap modal event) */
 const cartModalEl = document.getElementById('cartModal');
 if (cartModalEl) {
   cartModalEl.addEventListener('show.bs.modal', renderCart);
 }
 
+/* Hook checkout button (simple example) */
 const checkoutBtn = document.querySelector('#cartModal .modal-footer .btn-primary');
 if (checkoutBtn) {
   checkoutBtn.addEventListener('click', () => {
     const cart = getCart();
     if (cart.length === 0) { alert('Cart is empty'); return; }
+    // implement checkout flow here
     alert('Proceeding to checkout — implement your checkout flow.');
   });
 }
-
-
-// // LocalStorage helpers for cart
-// function getCart() {
-//   return JSON.parse(localStorage.getItem('cart')) || [];
-// }
-// function setCart(cart) {
-//   localStorage.setItem('cart', JSON.stringify(cart));
-// }
-
-// // Update the cart count badge (sum of quantities)
-// function cartCount() {
-//   const cart = getCart();
-//   const totalQty = cart.reduce((sum, item) => sum + Number(item.qty || 0), 0);
-//   const badge = document.querySelector('#cartCount') || document.querySelector('#count');
-//   if (badge) badge.textContent = totalQty;
-// }
-// document.addEventListener('DOMContentLoaded', cartCount);
-
-
-// /* ---------- Add to cart (main) ---------- */
-// function addToCart(id) {
-//   id = Number(id);
-//   const watchesFromLocal = getWatchesFromLocal() || []; // your product list
-//   const product = watchesFromLocal.find(p => Number(p.id) === id);
-//   if (!product) {
-//     alert('Product not found');
-//     return;
-//   }
-
-//   let cart = getCart();
-//   const idx = cart.findIndex(c => Number(c.id) === id);
-
-//   if (idx > -1) {
-//     // already in cart -> increase qty (respect stock)
-//     const newQty = Number(cart[idx].qty) + 1;
-//     if (product.stock && newQty > Number(product.stock)) {
-//       alert('Cannot add more — reached available stock');
-//       return;
-//     }
-//     cart[idx].qty = newQty;
-//   } else {
-//     // new item
-//     cart.push({
-//       id: product.id,
-//       title: product.title,
-//       price: Number(product.price),
-//       qty: 1
-//     });
-//   }
-
-//   setCart(cart);
-//   cartCount();
-//   renderCart(); // refresh modal if open
-//   // small UI feedback (optional)
-//   showTempAlert('Product added to cart');
-// }
-
-// /* simple temporary alert (you can replace with Bootstrap toast if you prefer) */
-// function showTempAlert(msg, duration = 1400) {
-//   const wrapper = document.createElement('div');
-//   wrapper.innerHTML = `<div class="alert alert-success alert-dismissible fade show position-fixed top-0 end-0 m-3" role="alert" style="z-index:2000;">
-//     ${msg}
-//   </div>`;
-//   document.body.appendChild(wrapper);
-//   setTimeout(()=> wrapper.remove(), duration);
-// }
-
-
-// /* ---------- Render cart modal content ---------- */
-// function renderCart() {
-//   const cart = getCart();
-//   const list = document.querySelector('#cartItemsList');
-//   if (!list) return;
-
-//   if (cart.length === 0) {
-//     list.innerHTML = `<li class="list-group-item">Your cart is empty</li>`;
-//     return;
-//   }
-
-//   const itemsHtml = cart.map(item => `
-//     <li class="list-group-item d-flex justify-content-between align-items-center">
-//       <div>
-//         <strong>${item.title}</strong><br>
-//         ₹${Number(item.price).toFixed(2)} x <span class="fw-bold">${item.qty}</span>
-//         = ₹${(item.price * item.qty).toFixed(2)}
-//       </div>
-//       <div class="btn-group" role="group" aria-label="cart-controls">
-//         <button class="btn btn-sm btn-outline-secondary cart-decrease" data-id="${item.id}">-</button>
-//         <button class="btn btn-sm btn-outline-secondary cart-increase" data-id="${item.id}">+</button>
-//         <button class="btn btn-sm btn-danger ms-2 cart-remove" data-id="${item.id}">Remove</button>
-//       </div>
-//     </li>
-//   `).join('');
-
-//   const total = cart.reduce((s, it) => s + Number(it.price) * Number(it.qty), 0);
-
-//   list.innerHTML = itemsHtml + `
-//     <li class="list-group-item d-flex justify-content-between">
-//       <strong>Total</strong>
-//       <strong>₹${total.toFixed(2)}</strong>
-//     </li>
-//   `;
-// }
-
-// /* ---------- Cart controls (delegate click handlers) ---------- */
-// const cartListEl = document.querySelector('#cartItemsList');
-// if (cartListEl) {
-//   cartListEl.addEventListener('click', (e) => {
-//     const btn = e.target.closest('button');
-//     if (!btn) return;
-//     const id = Number(btn.dataset.id);
-//     if (btn.classList.contains('cart-increase')) changeQty(id, +1);
-//     else if (btn.classList.contains('cart-decrease')) changeQty(id, -1);
-//     else if (btn.classList.contains('cart-remove')) removeFromCart(id);
-//   });
-// }
-
-// function changeQty(id, delta) {
-//   const watchesFromLocal = getWatchesFromLocal() || [];
-//   const product = watchesFromLocal.find(p => Number(p.id) === id);
-
-//   let cart = getCart();
-//   const idx = cart.findIndex(i => Number(i.id) === id);
-//   if (idx === -1) return;
-
-//   cart[idx].qty = Number(cart[idx].qty) + delta;
-
-//   if (cart[idx].qty <= 0) {
-//     cart.splice(idx, 1);
-//   } else if (product && product.stock && cart[idx].qty > Number(product.stock)) {
-//     cart[idx].qty = Number(product.stock);
-//     alert('Reached max stock for this product');
-//   }
-
-//   setCart(cart);
-//   cartCount();
-//   renderCart();
-// }
-
-// function removeFromCart(id) {
-//   let cart = getCart();
-//   cart = cart.filter(it => Number(it.id) !== id);
-//   setCart(cart);
-//   cartCount();
-//   renderCart();
-// }
-
-// /* Render cart when modal opens (Bootstrap modal event) */
-// const cartModalEl = document.getElementById('cartModal');
-// if (cartModalEl) {
-//   cartModalEl.addEventListener('show.bs.modal', renderCart);
-// }
-
-// /* Hook checkout button (simple example) */
-// const checkoutBtn = document.querySelector('#cartModal .modal-footer .btn-primary');
-// if (checkoutBtn) {
-//   checkoutBtn.addEventListener('click', () => {
-//     const cart = getCart();
-//     if (cart.length === 0) { alert('Cart is empty'); return; }
-//     // implement checkout flow here
-//     alert('Proceeding to checkout — implement your checkout flow.');
-//   });
-// }
 
 
 
@@ -445,6 +293,7 @@ renderCardElmt.innerHTML = prodArray.map(
 <div class="col-sm-12 col-md-6 col-lg-4 g-4">
     <div class="card shadow-lg">
       <div class="card-body">
+      
       <img src="./img/image3.webp" height="200px"  style=" object-fit: cover;" class="d-block w-100 " alt="...">
     <h4 class="card-title mt-2 mb-3 fw-bold text-center">${w.title}</h4>
     <p class="card-text lead fs-6">Description: ${w.description}</p>
@@ -470,11 +319,11 @@ renderCardElmt.innerHTML = prodArray.map(
 //brand filter  removes duplicates Get unique list of all brands
 
 function renderBrands(){
-let watches = getWatchesFromLocal()
+let watches63 = getWatchesFromLocal()
 console.log(watches);
 
 
-    brands = new Set(watches.map((p)=> p.brand))          // Get unique brands (no duplicates)
+    brands = new Set(watches63.map((p)=> p.brand))          // Get unique brands (no duplicates)
     proBrand = Array.from(brands)
     console.log(proBrand)
     document.querySelector("#renderBrands").innerHTML= proBrand.map((p)=>    // Show each brand as a button
@@ -538,6 +387,23 @@ window.addEventListener("DOMContentLoaded",()=>{  // 12. Run when page loads
     renderProducts(dataFromLocal)
     renderBrands()
   }
+})
+
+document.addEventListener('DOMContentLoaded', function(){
+  const form = document.getElementById('enquiry-form');
+  form.addEventListener('submit', function(event){
+
+       event.preventDefault();
+    const name = form.elements.name.value;
+    const email = form.elements.email.value
+    const message = form.elements.message.value
+
+    if(name.trim() === '' || email.trim() === '' || message.trim() ===''){
+      return
+    }
+    alert(`Thank you for your message, ${name}! We will get back to you soon.`);
+        form.reset();
+  })
 })
 
 
